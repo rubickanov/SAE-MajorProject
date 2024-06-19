@@ -1,4 +1,5 @@
 using ALG.Input;
+using ALG.Player;
 using UnityEngine;
 
 namespace ALG.Interactions
@@ -7,10 +8,11 @@ namespace ALG.Interactions
     {
         [SerializeField]
         private GameObject desktopUI;
+
         public void Interact()
         {
             desktopUI.SetActive(true);
-            InputReader.Instance.IsCursorForUI(true);
+            CursorController.Instance.IsCursorForUI(true);
         }
     }
 }

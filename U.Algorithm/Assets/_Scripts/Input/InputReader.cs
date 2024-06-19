@@ -109,22 +109,9 @@ namespace ALG.Input
             }
         }
         
-        
-        private void OnApplicationFocus(bool hasFocus)
-        {
-            SetCursorLockState(cursorLocked);
-        }
-
-        private void SetCursorLockState(bool newState)
+        public void SetCursorLockState(bool newState)
         {
             Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-        }
-        
-        public void IsCursorForUI(bool isCursorForUI)
-        {
-            SetCursorLockState(!isCursorForUI);
-            cursorInputForLook = !isCursorForUI;
-            Cursor.visible = isCursorForUI;
         }
     }
 }
