@@ -1,8 +1,9 @@
+using System;
 using Rubickanov.Logger;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace StarterAssets
+namespace ALG.Input
 {
     public class InputReader : MonoBehaviour, GameInput.IGameplayActions
     {
@@ -14,12 +15,17 @@ namespace StarterAssets
         public Vector2 look;
         public bool jump;
         public bool sprint;
+        public bool interact;
 
         [Header("Mouse Cursor Settings")]
         public bool cursorLocked = true;
         public bool cursorInputForLook = true;
 
         private GameInput gameInput;
+        
+        
+        // EVENTS
+        public Action OnInteractPerformed;
 
         private void Awake()
         {
@@ -70,16 +76,6 @@ namespace StarterAssets
             sprint = newSprintState;
         }
 
-        private void OnApplicationFocus(bool hasFocus)
-        {
-            SetCursorState(cursorLocked);
-        }
-
-        private void SetCursorState(bool newState)
-        {
-            Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
-        }
-
         public void OnMove(InputAction.CallbackContext context)
         {
             MoveInput(context.ReadValue<Vector2>());
@@ -101,6 +97,34 @@ namespace StarterAssets
         public void OnSprint(InputAction.CallbackContext context)
         {
             SprintInput(context.ReadValueAsButton());
+        }
+
+        public void OnInteract(InputAction.CallbackContext context)
+        {
+            interact = context.ReadValueAsButton();
+            if (context.performed)
+            {
+                OnInteractPerformed?.Invoke();
+                logger.Log(LogLevel.Debug, "Interact performed", this);
+            }
+        }
+        
+        
+        private void OnApplicationFocus(bool hasFocus)
+        {
+            SetCursorLockState(cursorLocked);
+        }
+
+        private void SetCursorLockState(bool newState)
+        {
+            Cursor.lockState = newState ? CursorLockMode.Locked : CursorLockMode.None;
+        }
+        
+        public void IsCursorForUI(bool isCursorForUI)
+        {
+            SetCursorLockState(!isCursorForUI);
+            cursorInputForLook = !isCursorForUI;
+            Cursor.visible = isCursorForUI;
         }
     }
 }

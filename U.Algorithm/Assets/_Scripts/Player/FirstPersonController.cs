@@ -1,10 +1,6 @@
-﻿using Rubickanov.Logger;
-using StarterAssets;
-using UnityEditor;
+﻿using ALG.Input;
+using Rubickanov.Logger;
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM
-using UnityEngine.InputSystem;
-#endif
 
 namespace ALG.Player
 {

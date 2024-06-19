@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ALG
+namespace ALG.TempProto
 {
     public class PCInteraction : MonoBehaviour
     {
@@ -33,7 +33,7 @@ namespace ALG
 
             if (isActive)
             {
-                if (Input.GetKeyDown(KeyCode.F))
+                if (UnityEngine.Input.GetKeyDown(KeyCode.F))
                 {
                     osUI.SetActive(true);
                 }
