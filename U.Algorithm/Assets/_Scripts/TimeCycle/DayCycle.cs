@@ -3,81 +3,35 @@ using UnityEngine;
 
 namespace ALG.TimeCycle
 {
-    [Serializable]
-    public struct TimeData
-    {
-        public int Day;
-        public int Hours;
-        public int Minutes;
-        public float Seconds;
-    }
-
     public class DayCycle : MonoBehaviour
     {
         [SerializeField]
         private bool freezeTime = false;
         [SerializeField]
-        private int secondsInMunite = 5;
+        private int secondsInMinute = 5;
         [SerializeField, Range(1, 100)]
         private float timeMultiplier = 1.0f;
         [SerializeField]
-        private TimeData startTime;
+        private TimeDataSO startTime;
 
-        private TimeData timeData;
+        [SerializeField] private TimeDataSO timeData;
+        private float timer;
 
-        public Action<int> OnMinutesUpdate;
-        public Action<int> OnHoursUpdate;
-        public Action<int> OnDaysUpdate;
+        private void Start()
+        {
+            timeData.SetTime(startTime.Minutes, startTime.Hours, startTime.Day);
+        }
 
         private void Update()
         {
-            TickSecond();
-        }
-
-        private void TickSecond()
-        {
             if (freezeTime) return;
-            timeData.Seconds += Time.deltaTime * timeMultiplier;
-            if (timeData.Seconds >= secondsInMunite)
+
+            timer += Time.deltaTime * timeMultiplier;
+            if (timer > secondsInMinute)
             {
-                timeData.Seconds = 0;
-                TickMinute();
+                timeData.TickMinute();
+                timer = 0;
             }
-        }
-
-        private void TickMinute()
-        {
-            timeData.Minutes++;
-            if (timeData.Minutes >= 60)
-            {
-                timeData.Minutes = 0;
-                TickHour();
-            }
-
-            OnMinutesUpdate?.Invoke(timeData.Minutes);
-        }
-
-        private void TickHour()
-        {
-            timeData.Hours++;
-            if (timeData.Hours >= 24)
-            {
-                timeData.Hours = 0;
-                TickDay();
-            }
-
-            OnHoursUpdate?.Invoke(timeData.Hours);
-        }
-
-        private void TickDay()
-        {
-            timeData.Day++;
-            OnDaysUpdate?.Invoke(timeData.Day);
-        }
-
-        public TimeData GetTimeData()
-        {
-            return timeData;
         }
     }
 }

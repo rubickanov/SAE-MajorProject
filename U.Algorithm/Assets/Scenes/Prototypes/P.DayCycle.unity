@@ -286,12 +286,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   freezeTime: 0
-  secondsInMunite: 1
-  startTime:
-    Day: 0
-    Hours: 0
-    Minutes: 0
-    Seconds: 0
+  secondsInMinute: 5
+  timeMultiplier: 1
+  startTime: {fileID: 11400000, guid: cdd0ed32e1e0efa4cabb535bd4dee6ab, type: 2}
+  timeData: {fileID: 11400000, guid: 86de2524c7de7094da7001c5d255638c, type: 2}
 --- !u!4 &398803840
 Transform:
   m_ObjectHideFlags: 0
@@ -426,7 +424,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0435a7b973f8a947a0326c5b57c9d4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dayCycle: {fileID: 398803839}
+  timeData: {fileID: 11400000, guid: 86de2524c7de7094da7001c5d255638c, type: 2}
   dayText: {fileID: 862317729}
   hoursText: {fileID: 236312127}
   minutesText: {fileID: 1002058281}

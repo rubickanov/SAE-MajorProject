@@ -6,18 +6,18 @@ namespace ALG.TempProto
 {
     public class DayCycleUI : MonoBehaviour
     {
-        [SerializeField] private DayCycle dayCycle;
+        [SerializeField] private TimeDataSO timeData;
         [SerializeField] private TextMeshProUGUI dayText;
         [SerializeField] private TextMeshProUGUI hoursText;
         [SerializeField] private TextMeshProUGUI minutesText;
 
         private void Start()
         {
-            dayCycle.OnMinutesUpdate += UpdateMinutes;
-            dayCycle.OnDaysUpdate += UpdateDays;
-            dayCycle.OnHoursUpdate += UpdateHours;
+            timeData.OnMinutesUpdate += UpdateMinutes;
+            timeData.OnDaysUpdate += UpdateDays;
+            timeData.OnHoursUpdate += UpdateHours;
 
-            TimeData timeData = dayCycle.GetTimeData();
+            
             UpdateMinutes(timeData.Minutes);
             UpdateDays(timeData.Day);
             UpdateHours(timeData.Hours);
