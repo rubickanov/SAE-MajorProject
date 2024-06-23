@@ -18,6 +18,8 @@ namespace ALG.TimeCycle
         private bool freezeTime = false;
         [SerializeField]
         private int secondsInMunite = 5;
+        [SerializeField, Range(1, 100)]
+        private float timeMultiplier = 1.0f;
         [SerializeField]
         private TimeData startTime;
 
@@ -35,7 +37,7 @@ namespace ALG.TimeCycle
         private void TickSecond()
         {
             if (freezeTime) return;
-            timeData.Seconds += Time.deltaTime;
+            timeData.Seconds += Time.deltaTime * timeMultiplier;
             if (timeData.Seconds >= secondsInMunite)
             {
                 timeData.Seconds = 0;
